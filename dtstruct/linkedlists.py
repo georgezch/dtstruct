@@ -47,39 +47,68 @@ class LinkedList:
     """
 
     def __init__(self):
-        self.head = Node()
+        self.head = None
+        self.length = 0
 
-    def appendNode(self, data):
+    def appendNodeTail(self, data):
         """
         Adding a node at the end of the list
         """
         newNode = Node(data)
-        curr = self.head
-        while curr is not None:
-            curr = curr.next
-        curr.next = newNode
+        if self.head is None:
+            self.head = newNode
+        else:
+            cur = self.head
+            while cur.next is not None:
+                cur = cur.next
+            cur.next = newNode
+        self.length += 1
+
+    def initWithValues(self, data):
+        for val in data:
+            self.appendNodeTail(val)
+
+    def appendNodeHead(self, data):
+        """
+        Adding a node at the beginning of the list
+        """
+        newNode = Node(data)
+        newNode.next = self.head
+        self.head = newNode
+        self.length += 1
 
     def getLength(self):
         """
         Get the length of the list
         """
-        curr = self.head
-        tot = 0
-        while curr.next is not None:
-            tot += 1
-            curr = curr.next
+        return self.length
 
-        return tot
-
-    def getList(self):
+    def getList(self, startind=0, endind=None):
         """
         Collect all elements from all nodes and return as list
         """
-        elms = []
-        curr = self.head
-        while curr.next is not None:
-            curr = curr.next
-            elms.append(curr.data)
+        if self.head is None:
+            return []
+
+        if endind is None:
+            endind = self.length
+
+        cur = self.head
+        if startind == 0:
+            elms = [self.head.data]
+        else:
+            elms = []
+
+        i = 1
+        while cur.next is not None:
+            cur = cur.next
+
+            if i >= startind and i <= endind:
+                elms.append(cur.data)
+
+            i += 1
+            if i > endind:
+                break
 
         return elms
 
@@ -93,16 +122,93 @@ class LinkedList:
         """
         Get value of node by index
         """
-        length = self.getLength()
-        if index > length:
-            raise Exception(
-                f"!ERROR! Index {index} out of range for list of length {length}"
+        if index > self.length:
+            raise ValueError(
+                f"Index {index} out of range for list of length {self.length}"
             )
 
-        curr = self.head
+        if self.head is None:
+            raise ValueError("List contains no data")
+
+        if index == 0:
+            return self.head.data
+
+        cur = self.head
         i = 0
-        while curr.next is not None and i < index:
-            curr = curr.next
+        while cur.next is not None:
+            cur = cur.next
+
+            i += 1
+            if i == index:
+                break
+
+        return cur.data
+
+    def insertNode(self, index, data):
+        """
+        Insert a node to the right of a specific place by index
+        """
+        if self.head is None or self.length == 1:
+            self.appendNodeTail(data)
+            self.length += 1
+            return
+
+        newNode = Node(data)
+
+        cur = self.head
+        i = 0
+        while cur.next is not None:
+            cur = cur.next
+
+            i += 1
+            if i == index:
+                break
+
+        newNext = cur.next
+        cur.next = newNode
+        cur.next.next = newNext
+
+        self.length += 1
+
+    def deleteNode(self, index):
+        """
+        Delete a node by index
+        """
+        if self.head is None:
+            raise ValueError("Cannot delete from empty list")
+
+        if index >= self.length:
+            raise ValueError(
+                f"Out of bounds index {index} of list with length {self.length}"
+            )
+
+        if self.length == 1:
+            self.head = None
+            self.length = 0
+            return
+
+        if index == 0:
+            newHead = self.head.next
+            self.head = newHead
+            self.length -= 1
+            return
+
+        cur = self.head
+        i = 0
+        while cur.next is not None:
+            if index == i + 1:
+                break
             i += 1
 
-        return curr.data
+            cur = cur.next
+
+        if cur.next.next is None:
+            cur.next = None
+            self.length -= 1
+            return
+
+        newNext = cur.next.next
+        cur.next = newNext
+        self.length -= 1
+
+        return
