@@ -1,4 +1,4 @@
-This is a simple package for implementing and testing data structures in various programming languages.
+Simple package for implementing and testing data structures in Python.
 
 AUTHOR
 ======
