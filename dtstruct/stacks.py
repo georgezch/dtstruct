@@ -11,6 +11,21 @@ Some basic operartions we can do are:
 - Size: Find the number of elements in the stack.
 
 Stacks can be implemented using arrays, lists, or stacks.
+
+Stacks can be implemented as linked lists. In that case we lose the
+memory efficiency of stacks, but we gain the benefit of the fixed-size
+of the arrays used for stacks.
+
+Time complexity is O(1), as with a push or pop only the
+last element is affected and is done in constant time.
+
+Space complexity is O(1) as no extra space is being used.
+
+Stacks are used in many real-world scenarios:
+- Undo/Redo operations in text editors.
+- Browser history (back/forward).
+- Function call stack in programming.
+- Expression evaluation.
 """
 
 

@@ -26,6 +26,26 @@ Linked list operations:
 Time complexity:
 - Traversing is an O(n) operation, like arrays
 - Deleting and removing is O(1), better than arrays which are O(n)
+
+Linked lists can be used for:
+- Stacks and Queues (FIFO and LIFO structures) where
+  elements are added and removed efficiently from the ends.
+- Graphs (specifically, the adjacency list representation) and
+  Trees (like binary search trees).
+- Hash Tables to handle collisions using a technique called chaining.
+- Browser history: Doubly linked lists allow users to navigate back and forward
+  through visited web pages efficiently.
+- Music/video playlists: Playlists often use circular or doubly linked lists
+  to manage song order and loop playback.
+- Undo/Redo functionality: Text editors and design software use doubly
+  linked lists to store a history of actions,
+  allowing easy navigation between states.
+- The Linux kernel uses linked lists for various internal data
+  management tasks, such as managing active processes.
+- Resource scheduling algorithms, like Round Robin, often use
+  circular linked lists to ensure fair allocation of CPU time to processes.
+- File systems can use linked lists (e.g., the FAT system) to
+  manage non-contiguous disk storage for files.
 """
 
 
