@@ -49,7 +49,16 @@ class Stack:
         for val in array:
             self.push(val)
 
-    def pop(self, num=1):
+    def pop(self):
+        """
+        Remove and return top element
+        """
+        val = self.stack[-1]
+        self.stack.pop()
+        self.length -= 1
+        return val
+
+    def popValues(self, num=1):
         """
         Remove a given number of values
         from the stack and return them
@@ -67,7 +76,16 @@ class Stack:
 
         return deletedValues
 
-    def peek(self, num=1):
+    def peek(self):
+        """
+        Return the top element in the stack
+        """
+        if self.isEmpty():
+            raise ValueError("The stack is empty")
+
+        return self.stack[-1]
+
+    def peekValues(self, num=1):
         """
         Return the top elements in the stack
         """

@@ -19,18 +19,24 @@ def test_push():
 def test_peek():
     stack = Stack()
 
+    try:
+        stack.peek()
+    except ValueError:
+        raises_ValueError_EmptyStack = True
+    assert raises_ValueError_EmptyStack
+
     data = [1, 2, 3, 4]
     stack.pushValues(data)
     assert stack.getSize() == len(data)
 
     peek = stack.peek()
-    assert peek == [data[-1]]
+    assert peek == data[-1]
 
-    peek = stack.peek(3)
+    peek = stack.peekValues(3)
     assert peek == [4, 3, 2]
 
     try:
-        stack.peek(10)
+        stack.peekValues(10)
     except ValueError:
         raises_ValueError_outOfBounds = True
     assert raises_ValueError_outOfBounds
@@ -43,14 +49,17 @@ def test_pop():
     data = [1, 2, 3, 4]
     stack.pushValues(data)
     assert stack.getSize() == len(data)
-    assert stack.peek() == [4]
 
-    stack.pop()
+    popValue = stack.pop()
     assert stack.getSize() == len(data) - 1
-    assert stack.peek() == [3]
+    assert popValue == 4
+
+    popValues = stack.popValues(2)
+    assert stack.getSize() == len(data) - 3
+    assert popValues == [3, 2]
 
     try:
-        stack.pop(10)
+        stack.popValues(10)
     except ValueError:
         raises_ValueError_outOfBounds = True
     assert raises_ValueError_outOfBounds
